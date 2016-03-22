@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="B_DEMUX_BOOL">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-12" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="EI1" Type="Event">
+        <With Var="IN1"/>
+      </Event>
+      <Event Name="EI2" Type="Event">
+        <With Var="IN2"/>
+      </Event>
+      <Event Name="EI3" Type="Event">
+        <With Var="IN3"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="CNF" Type="Event">
+        <With Var="OUT"/>
+      </Event>
+      <Event Name="NCNF" Type="Event">
+        <With Var="OUT"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="BOOL"/>
+      <VarDeclaration Name="IN2" Type="BOOL"/>
+      <VarDeclaration Name="IN3" Type="BOOL"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="BOOL"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="665.0" y="570.0"/>
+      <ECState Comment="Initialization" Name="copyIN2" x="920.0" y="140.0">
+        <ECAction Algorithm="ALG2" Output="NCNF"/>
+      </ECState>
+      <ECState Comment="Normal execution" Name="copyIN1" x="190.0" y="1900.0">
+        <ECAction Algorithm="ALG1" Output="CNF"/>
+      </ECState>
+      <ECState Name="State" x="2560.0" y="1700.0">
+        <ECAction Algorithm="ALG3" Output="CNF"/>
+      </ECState>
+      <ECTransition Comment="" Condition="EI2" Destination="copyIN2" Source="START" x="920.0" y="425.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="copyIN2" x="550.0" y="140.0"/>
+      <ECTransition Comment="" Condition="EI1" Destination="copyIN1" Source="START" x="550.0" y="600.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="copyIN1" x="215.0" y="425.0"/>
+      <ECTransition Comment="" Condition="EI3" Destination="State" Source="START" x="1175.0" y="1600.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="State" x="1670.0" y="1125.0"/>
+    </ECC>
+    <Algorithm Comment="new algorithm" Name="ALG1">
+      <ST Text="OUT:=IN1;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ALG2">
+      <ST Text="OUT:=IN2;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ALG3">
+      <ST Text="OUT:=IN3;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

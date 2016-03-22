@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="UINT_DEMUX_N">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-03" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="E1" Type="Event">
+        <With Var="UINT1"/>
+      </Event>
+      <Event Name="E2" Type="Event">
+        <With Var="UINT2"/>
+      </Event>
+      <Event Name="E3" Type="Event">
+        <With Var="UINT3"/>
+      </Event>
+      <Event Name="E4" Type="Event">
+        <With Var="UINT4"/>
+      </Event>
+      <Event Name="E5" Type="Event">
+        <With Var="UINT5"/>
+      </Event>
+      <Event Name="E6" Type="Event">
+        <With Var="UINT6"/>
+      </Event>
+      <Event Name="E7" Type="Event">
+        <With Var="UINT7"/>
+      </Event>
+      <Event Name="E8" Type="Event">
+        <With Var="UINT8"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="EO" Type="Event">
+        <With Var="OUT"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="UINT1" Type="UINT"/>
+      <VarDeclaration Name="UINT2" Type="UINT"/>
+      <VarDeclaration Name="UINT3" Type="UINT"/>
+      <VarDeclaration Name="UINT4" Type="UINT"/>
+      <VarDeclaration Name="UINT5" Type="UINT"/>
+      <VarDeclaration Name="UINT6" Type="UINT"/>
+      <VarDeclaration Name="UINT7" Type="UINT"/>
+      <VarDeclaration Name="UINT8" Type="UINT"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="UINT"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="855.0" y="855.0"/>
+      <ECState Comment="Initialization" Name="P_UINT3" x="95.0" y="190.0">
+        <ECAction Algorithm="Puint3" Output="EO"/>
+      </ECState>
+      <ECState Comment="Normal execution" Name="P_UINT1" x="0.0" y="760.0">
+        <ECAction Algorithm="Puint1" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT2" x="1045.0" y="95.0">
+        <ECAction Algorithm="Puint2" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT4" x="795.0" y="1630.0">
+        <ECAction Algorithm="Puint4" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT5" x="1710.0" y="285.0">
+        <ECAction Algorithm="Puint5" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT6" x="1805.0" y="570.0">
+        <ECAction Algorithm="Puint6" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT7" x="1900.0" y="855.0">
+        <ECAction Algorithm="Puint7" Output="EO"/>
+      </ECState>
+      <ECState Name="P_UINT8" x="1900.0" y="1330.0">
+        <ECAction Algorithm="Puint8" Output="EO"/>
+      </ECState>
+      <ECTransition Comment="" Condition="E3" Destination="P_UINT3" Source="START" x="685.0" y="580.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT3" x="490.0" y="590.0"/>
+      <ECTransition Comment="" Condition="E1" Destination="P_UINT1" Source="START" x="785.0" y="1045.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT1" x="415.0" y="665.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT2" x="1160.0" y="595.0"/>
+      <ECTransition Comment="" Condition="E2" Destination="P_UINT2" Source="START" x="820.0" y="570.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT4" x="875.0" y="1275.0"/>
+      <ECTransition Comment="" Condition="E4" Destination="P_UINT4" Source="START" x="1345.0" y="1395.0"/>
+      <ECTransition Comment="" Condition="E5" Destination="P_UINT5" Source="START" x="1380.0" y="430.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT5" x="1430.0" y="605.0"/>
+      <ECTransition Comment="" Condition="E6" Destination="P_UINT6" Source="START" x="1385.0" y="725.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT6" x="1525.0" y="830.0"/>
+      <ECTransition Comment="" Condition="E7" Destination="P_UINT7" Source="START" x="1450.0" y="890.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT7" x="1615.0" y="980.0"/>
+      <ECTransition Comment="" Condition="E8" Destination="P_UINT8" Source="START" x="1860.0" y="1140.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="P_UINT8" x="1825.0" y="1490.0"/>
+    </ECC>
+    <Algorithm Comment="Print UINT1 -&gt; OUT" Name="Puint1">
+      <ST Text="OUT:=UINT1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT2 -&gt; OUT" Name="Puint2">
+      <ST Text="OUT:=UINT2;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT3 -&gt; OUT" Name="Puint3">
+      <ST Text="OUT:=UINT3;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT4 -&gt; OUT" Name="Puint4">
+      <ST Text="OUT:=UINT4;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT5 -&gt; OUT" Name="Puint5">
+      <ST Text="OUT:=UINT5;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT6 -&gt; OUT" Name="Puint6">
+      <ST Text="OUT:=UINT6;"/>
+    </Algorithm>
+    <Algorithm Comment="Print UINT7 -&gt; OUT" Name="Puint7">
+      <ST Text="OUT:=UINT7;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="Puint8">
+      <ST Text="OUT:=UINT8;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

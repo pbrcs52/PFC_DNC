@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="B_ALGDNC">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-24" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="INIT" Type="Event"/>
+      <Event Comment="Normal Execution Request" Name="REQ" Type="Event">
+        <With Var="DTR"/>
+        <With Var="DTS"/>
+      </Event>
+      <Event Comment="CNF CLIENT" Name="CNFC" Type="Event">
+        <With Var="RDC"/>
+      </Event>
+      <Event Comment="EO DELAY" Name="T" Type="Event"/>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Initialization Confirm" Name="INITO" Type="Event"/>
+      <Event Comment="Execution Confirmation" Name="CNF" Type="Event">
+        <With Var="Q"/>
+        <With Var="DATA"/>
+      </Event>
+      <Event Comment="REQ CLIENT" Name="REQC" Type="Event">
+        <With Var="SDC"/>
+      </Event>
+      <Event Comment="START DELAY" Name="ST" Type="Event"/>
+      <Event Comment="STOP DELAY" Name="RT" Type="Event"/>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Comment="DATA TO SEND" Name="DTS" Type="STRING"/>
+      <VarDeclaration Comment="DATA TO RECIVE" Name="DTR" Type="STRING"/>
+      <VarDeclaration Comment="RD CLIENT" Name="RDC" Type="STRING"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Comment="SD CLIENT" Name="SDC" Type="STRING"/>
+      <VarDeclaration Comment="RESULT" Name="Q" Type="BOOL"/>
+      <VarDeclaration Name="DATA" Type="STRING"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="OK" Type="BOOL"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="NAK" Type="BOOL"/>
+      <VarDeclaration Comment="Numero Repeticiones DELAY" InitialValue="0" Name="NT" Type="UINT"/>
+      <VarDeclaration Comment="Numero Repeticones NAKDEL" InitialValue="0" Name="NE" Type="UINT"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="" Name="STRINGNAK" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="STX" Type="BOOL"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRINGSTX" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRINGCMP" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="EOTDEL" Type="BOOL"/>
+      <VarDeclaration Comment="Internal Variable" Name="COMPOSITESTRING" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="CMPSTRINGLENGHT" Type="UINT"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRINGETB" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRINGETX" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="TRUNCADA" Type="BOOL"/>
+    </InternalVars>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="0.0" y="0.0"/>
+      <ECState Name="State" x="1615.0" y="-95.0"/>
+      <ECState Name="State_1" x="2470.0" y="95.0">
+        <ECAction Algorithm="S1" Output="RT"/>
+      </ECState>
+      <ECState Name="State_2" x="2850.0" y="475.0">
+        <ECAction Algorithm="S2" Output="REQC"/>
+      </ECState>
+      <ECState Name="State_3" x="3515.0" y="855.0">
+        <ECAction Output="ST"/>
+      </ECState>
+      <ECState Name="State_4" x="1805.0" y="1330.0">
+        <ECAction Algorithm="S4" Output="RT"/>
+      </ECState>
+      <ECState Name="State_6" x="1045.0" y="760.0">
+        <ECAction Algorithm="S6" Output="CNF"/>
+      </ECState>
+      <ECState Name="State_7" x="1045.0" y="1710.0">
+        <ECAction Algorithm="S7"/>
+      </ECState>
+      <ECState Name="State_10" x="950.0" y="2375.0">
+        <ECAction Algorithm="S10" Output="REQC"/>
+        <ECAction Output="CNF"/>
+      </ECState>
+      <ECState Name="State_11" x="3230.0" y="1995.0">
+        <ECAction Algorithm="S11"/>
+      </ECState>
+      <ECState Name="State_12" x="4085.0" y="1330.0">
+        <ECAction Algorithm="S12" Output="REQC"/>
+      </ECState>
+      <ECState Name="State_5" x="665.0" y="-190.0">
+        <ECAction Output="INITO"/>
+      </ECState>
+      <ECState Name="State_8" x="380.0" y="760.0">
+        <ECAction Algorithm="S8" Output="CNF"/>
+      </ECState>
+      <ECState Name="State_9" x="2850.0" y="1330.0"/>
+      <ECTransition Comment="" Condition="REQ" Destination="State_1" Source="State" x="2030.0" y="170.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State_2" Source="State_1" x="2655.0" y="310.0"/>
+      <ECTransition Comment="" Condition="NOT EOTDEL" Destination="State_3" Source="State_2" x="3575.0" y="740.0"/>
+      <ECTransition Comment="" Condition="CNFC" Destination="State_4" Source="State_3" x="2480.0" y="895.0"/>
+      <ECTransition Comment="" Condition="OK &amp; NOT STX" Destination="State_6" Source="State_4" x="1255.0" y="1065.0"/>
+      <ECTransition Comment="" Condition="NAK" Destination="State_7" Source="State_4" x="1500.0" y="1555.0"/>
+      <ECTransition Comment="" Condition="NE&gt;=3" Destination="State_10" Source="State_7" x="1115.0" y="2135.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State" Source="State_10" x="95.0" y="1070.0"/>
+      <ECTransition Comment="" Condition="NT=3" Destination="State_10" Source="State_11" x="2030.0" y="2205.0"/>
+      <ECTransition Comment="" Condition="NT&lt;3" Destination="State_12" Source="State_11" x="4175.0" y="1795.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State" Source="State_6" x="1495.0" y="460.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State_3" Source="State_12" x="4310.0" y="1140.0"/>
+      <ECTransition Comment="" Condition="NE&lt;3" Destination="State_2" Source="State_7" x="1875.0" y="765.0"/>
+      <ECTransition Comment="" Condition="NOT OK &amp; NOT NAK &amp; NOT TRUNCADA" Destination="State_11" Source="State_4" x="2235.0" y="1930.0"/>
+      <ECTransition Comment="" Condition="T" Destination="State_11" Source="State_3" x="3645.0" y="1375.0"/>
+      <ECTransition Comment="" Condition="EOTDEL" Destination="State_6" Source="State_2" x="1970.0" y="470.0"/>
+      <ECTransition Comment="" Condition="INIT" Destination="State_5" Source="START" x="425.0" y="-175.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State" Source="State_5" x="1190.0" y="35.0"/>
+      <ECTransition Comment="" Condition="STX &amp; OK" Destination="State_8" Source="State_4" x="670.0" y="1340.0"/>
+      <ECTransition Comment="" Condition="1" Destination="State" Source="State_8" x="1165.0" y="455.0"/>
+      <ECTransition Comment="" Condition="TRUNCADA" Destination="State_9" Source="State_4" x="2515.0" y="1560.0"/>
+      <ECTransition Comment="" Condition="CNFC" Destination="State_4" Source="State_9" x="2490.0" y="1140.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="INIT">
+      <ST Text=""/>
+    </Algorithm>
+    <Algorithm Comment="Normally executed algorithm" Name="REQ">
+      <ST Text=""/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S2">
+      <ST Text="SDC:=DTS;&#10;STRINGCMP:='\x01\x02\x03\x04';&#10;&#10;IF STRINGCMP=DTR THEN&#10;EOTDEL:=TRUE;&#10;ELSE&#10;EOTDEL:=FALSE;&#10;END_IF;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S4">
+      <ST Text="STRINGNAK:='\x15\x7f';&#10;STRINGSTX:='\x02';&#10;STRINGETB:='\x17';&#10;STRINGETX:='\x03';&#10;STRINGCMP:= MID(RDC,1,1);&#10;&#10;&#10;&#10;&#10;IF RDC=DTR THEN &#10;&#9;OK:=TRUE;&#10;ELSIF RDC=STRINGNAK THEN&#10;&#9;NAK:=TRUE;&#10;ELSE&#10;&#9;NAK:=FALSE;&#10;&#9;OK:=FALSE;&#10;&#9;STX:=FALSE;&#10;END_IF;&#10;&#10;IF NOT TRUNCADA THEN&#10;&#9;COMPOSITESTRING:='\x00';&#9;&#10;&#9;STRINGCMP:= '\x02\x03';&#10;&#9;IF STRINGCMP=DTR THEN&#10;&#9;&#9;STRINGCMP:= MID(RDC,1,1);&#10;&#9;&#9;IF STRINGCMP=STRINGSTX THEN&#10;&#9;&#9;&#9;CMPSTRINGLENGHT:=LEN(RDC)-2;&#10;&#9;&#9;&#9;STRINGCMP:=MID(RDC,1,CMPSTRINGLENGHT);&#10;&#9;&#9;&#9;IF STRINGCMP=STRINGETX OR STRINGCMP=STRINGETB THEN&#10;&#9;&#9;&#9;&#9;COMPOSITESTRING:=RDC;&#10;&#9;&#9;&#9;&#9;STX:=TRUE;&#10;&#9;&#9;&#9;&#9;OK:=TRUE;&#10;&#9;&#9;&#9;&#9;TRUNCADA:=FALSE;&#10;&#9;&#9;&#9;ELSE&#10;&#9;&#9;&#9;&#9;COMPOSITESTRING:=RDC;&#10;&#9;&#9;&#9;&#9;TRUNCADA:=TRUE;&#9;&#10;&#9;&#9;&#9;&#9;STX:=FALSE;&#10;&#9;&#9;&#9;&#9;OK:=FALSE;&#10;&#9;&#9;&#9;END_IF;&#10;&#9;&#9;ELSE&#10;&#9;&#9;&#9;STX:=FALSE;&#10;&#9;&#9;&#9;OK:=FALSE;&#10;&#9;&#9;&#9;TRUNCADA:=FALSE;&#10;&#9;&#9;END_IF;&#10;&#9;END_IF;&#9;&#10;ELSE&#10;&#9;COMPOSITESTRING:=CONCAT(COMPOSITESTRING,RDC);&#10;&#9;CMPSTRINGLENGHT:=LEN(COMPOSITESTRING)-2;&#10;&#9;STRINGCMP:=MID(COMPOSITESTRING,1,CMPSTRINGLENGHT);&#10;&#9;IF STRINGCMP=STRINGETX OR STRINGCMP=STRINGETB THEN&#10;&#9;&#9;STX:=TRUE;&#10;&#9;&#9;OK:=TRUE;&#10;&#9;&#9;TRUNCADA:=FALSE;&#10;&#9;ELSE&#10;&#9;&#9;TRUNCADA:=TRUE;&#9;&#10;&#9;&#9;STX:=FALSE;&#10;&#9;&#9;OK:=FALSE;&#10;&#9;END_IF;&#10;END_IF;&#10;&#9;&#10;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S6">
+      <ST Text="Q:=TRUE;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S1">
+      <ST Text="NT:=0;&#10;NE:=0;&#10;OK:=FALSE;&#10;NAK:=FALSE;&#10;STX:=FALSE;&#10;EOTDEL:=FALSE;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S10">
+      <ST Text="SDC:='\x04';&#10;Q:=FALSE;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S7">
+      <ST Text="NE:=NE+1;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S11">
+      <ST Text="NT:=NT+1;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S12">
+      <ST Text="SDC:='\x05';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S3">
+      <ST Text=""/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="S8">
+      <ST Text="DATA:=COMPOSITESTRING;&#10;Q:=TRUE;&#10;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

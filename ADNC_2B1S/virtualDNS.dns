@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<virtualDNS:VirtualDNSManagement xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:virtualDNS="org.fordiac.ide.virtualDNS" activeVirtualDNS="//@availableDNSCollections.1">
+  <availableDNSCollections name="Configuration"/>
+  <availableDNSCollections name="Configuration1">
+    <virtualDNSEntries name="localhost" value="127.0.0.1"/>
+    <virtualDNSEntries name="BBB" value="192.168.0.105"/>
+    <virtualDNSEntries name="PANEL" value="192.168.0.107"/>
+  </availableDNSCollections>
+  <availableDNSCollections name="Configuration2">
+    <virtualDNSEntries name="localhost" value="Value not set"/>
+    <virtualDNSEntries name="BBB" value="192.168.7.2"/>
+    <virtualDNSEntries name="PANEL" value="192.168.7.1"/>
+  </availableDNSCollections>
+  <availableDNSCollections name="Configuration3">
+    <virtualDNSEntries name="localhost" value="Value not set"/>
+    <virtualDNSEntries name="BBB" value="192.168.0.105"/>
+    <virtualDNSEntries name="PANEL" value="192.168.0.106"/>
+  </availableDNSCollections>
+</virtualDNS:VirtualDNSManagement>

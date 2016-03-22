@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="B_SECCOM_CONTROLREMOTO">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-12-09" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="INIT" Type="Event">
+        <With Var="Q"/>
+        <With Var="UINT1"/>
+        <With Var="INSTRING"/>
+      </Event>
+      <Event Comment="Normal Execution Request" Name="REQ" Type="Event">
+        <With Var="Q"/>
+        <With Var="INSTRING"/>
+        <With Var="RDATA"/>
+      </Event>
+      <Event Name="CRCI" Type="Event">
+        <With Var="CRCSTRIN"/>
+      </Event>
+      <Event Name="CNFTXT" Type="Event">
+        <With Var="TXTSTRING"/>
+        <With Var="FINALTXT"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Initialization Confirm" Name="INITO" Type="Event"/>
+      <Event Comment="Execution Confirmation" Name="CNF" Type="Event">
+        <With Var="STRING1"/>
+        <With Var="STRING2"/>
+      </Event>
+      <Event Name="CRCO" Type="Event">
+        <With Var="CRCSTROUT"/>
+      </Event>
+      <Event Name="EDATA" Type="Event">
+        <With Var="DATA"/>
+      </Event>
+      <Event Name="REQTXT" Type="Event"/>
+      <Event Name="READY" Type="Event"/>
+      <Event Name="BUSY" Type="Event"/>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Comment="Input event qualifier" Name="Q" Type="BOOL"/>
+      <VarDeclaration Name="INSTRING" Type="STRING"/>
+      <VarDeclaration Name="UINT1" Type="UINT"/>
+      <VarDeclaration Name="CRCSTRIN" Type="STRING"/>
+      <VarDeclaration Name="RDATA" Type="STRING"/>
+      <VarDeclaration Name="TXTSTRING" Type="STRING"/>
+      <VarDeclaration Name="FINALTXT" Type="BOOL"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="STRING1" Type="STRING"/>
+      <VarDeclaration Name="STRING2" Type="STRING"/>
+      <VarDeclaration Name="CRCSTROUT" Type="STRING"/>
+      <VarDeclaration Name="DATA" Type="STRING"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB1" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB2" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB3" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="INITCONTROL" Type="BOOL"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="0" Name="UINTCPY" Type="UINT"/>
+      <VarDeclaration Comment="Internal Variable" Name="LASTDLE" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRINGSPACE" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="0" Name="SPACEINT" Type="INT"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="0" Name="AUXINT1" Type="INT"/>
+      <VarDeclaration Comment="Internal Variable" Name="INTERNALVAR2" Type="BOOL"/>
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" x="3135.0" y="-855.0"/>
+      <ECState Comment="Initial State" Name="State1" x="8740.0" y="-1140.0">
+        <ECAction Algorithm="start" Output="BUSY"/>
+      </ECState>
+      <ECState Name="SIMULACIONTECLADO" x="3610.0" y="1615.0">
+        <ECAction Algorithm="ST0" Output="CNF"/>
+      </ECState>
+      <ECState Name="EJECUCIONPROGRAMA" x="-285.0" y="1710.0">
+        <ECAction Algorithm="EP0" Output="CNF"/>
+      </ECState>
+      <ECState Name="PETICIONERRORES" x="1805.0" y="1710.0">
+        <ECAction Algorithm="PE0" Output="CNF"/>
+      </ECState>
+      <ECState Name="LECTURAEJES" x="5510.0" y="1615.0">
+        <ECAction Algorithm="ST0" Output="CNF"/>
+      </ECState>
+      <ECState Name="INFORMETIPO" x="7220.0" y="1615.0">
+        <ECAction Algorithm="ST0" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST1" x="3895.0" y="1995.0">
+        <ECAction Algorithm="ST1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="ST2" x="3895.0" y="2470.0">
+        <ECAction Algorithm="ST2" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_ST" x="2850.0" y="1615.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="ST3" x="3895.0" y="2850.0">
+        <ECAction Algorithm="ST3" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST4" x="3895.0" y="3230.0">
+        <ECAction Algorithm="ST4" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST5" x="3895.0" y="3610.0">
+        <ECAction Algorithm="ST5" Output="CNF"/>
+      </ECState>
+      <ECState Name="INFOREESTADO" x="9025.0" y="1615.0">
+        <ECAction Algorithm="IE0" Output="CNF"/>
+      </ECState>
+      <ECState Name="IE1" x="8930.0" y="1995.0">
+        <ECAction Algorithm="IE1" Output="CNF"/>
+      </ECState>
+      <ECState Name="IE2" x="8930.0" y="2280.0">
+        <ECAction Algorithm="IE2" Output="CNF"/>
+      </ECState>
+      <ECState Name="IE3" x="8930.0" y="2565.0">
+        <ECAction Algorithm="IE3" Output="CNF"/>
+      </ECState>
+      <ECState Name="IE4" x="8930.0" y="3040.0">
+        <ECAction Algorithm="IE40" Output="EDATA"/>
+        <ECAction Algorithm="IE4" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_IE" x="8360.0" y="1615.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="InitEP" x="855.0" y="1140.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="InitPE" x="2185.0" y="1330.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="Init_ST" x="3990.0" y="1330.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="Init_LE" x="5415.0" y="1235.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="Init_IT" x="7125.0" y="1235.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="Init_IE" x="8455.0" y="1140.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="PE1" x="2090.0" y="2090.0">
+        <ECAction Algorithm="PE1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="PE2" x="1995.0" y="2470.0">
+        <ECAction Algorithm="PE2" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_PE" x="1045.0" y="1710.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="PE3" x="1995.0" y="2945.0">
+        <ECAction Algorithm="PE3" Output="CNF"/>
+      </ECState>
+      <ECState Name="PE4" x="1995.0" y="3325.0">
+        <ECAction Algorithm="PE4" Output="CNF"/>
+      </ECState>
+      <ECState Name="PE5" x="1900.0" y="3705.0">
+        <ECAction Algorithm="PE50" Output="EDATA"/>
+        <ECAction Algorithm="PE5" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_IT" x="6460.0" y="1615.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="IT1" x="7315.0" y="1995.0">
+        <ECAction Algorithm="IT1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="IT2" x="7320.0" y="2375.0">
+        <ECAction Algorithm="ST2" Output="CNF"/>
+      </ECState>
+      <ECState Name="IT3" x="7315.0" y="2755.0">
+        <ECAction Algorithm="ST3" Output="CNF"/>
+      </ECState>
+      <ECState Name="IT4" x="7315.0" y="3135.0">
+        <ECAction Algorithm="ST4" Output="CNF"/>
+      </ECState>
+      <ECState Name="IT5" x="7315.0" y="3515.0">
+        <ECAction Algorithm="IT50" Output="EDATA"/>
+        <ECAction Algorithm="ST5" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_LE" x="4845.0" y="1615.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="LE1" x="5605.0" y="1995.0">
+        <ECAction Algorithm="LE1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="LE2" x="5605.0" y="2375.0">
+        <ECAction Algorithm="ST2" Output="CNF"/>
+      </ECState>
+      <ECState Name="LE3" x="5605.0" y="2850.0">
+        <ECAction Algorithm="ST3" Output="CNF"/>
+      </ECState>
+      <ECState Name="LE4" x="5605.0" y="3230.0">
+        <ECAction Algorithm="ST4" Output="CNF"/>
+      </ECState>
+      <ECState Name="LE5" x="5605.0" y="3610.0">
+        <ECAction Algorithm="LE50" Output="EDATA"/>
+        <ECAction Algorithm="ST5" Output="CNF"/>
+      </ECState>
+      <ECState Name="CARGAPROGRAMA" x="10830.0" y="1615.0">
+        <ECAction Algorithm="IE0" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_CP" x="9975.0" y="1425.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="Init_CP" x="10990.0" y="1235.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECState Name="CP1" x="11020.0" y="1995.0">
+        <ECAction Algorithm="CP1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="CP4" x="10735.0" y="2945.0">
+        <ECAction Algorithm="CP4" Output="CRCO"/>
+      </ECState>
+      <ECState Name="CP2" x="11020.0" y="2375.0">
+        <ECAction Algorithm="CP2" Output="CNF"/>
+      </ECState>
+      <ECState Name="CP3" x="11495.0" y="2850.0">
+        <ECAction Output="REQTXT"/>
+      </ECState>
+      <ECState Name="CP6" x="10735.0" y="4180.0">
+        <ECAction Algorithm="CP6" Output="CNF"/>
+      </ECState>
+      <ECState Name="CP5" x="10830.0" y="3515.0">
+        <ECAction Algorithm="CP5" Output="CNF"/>
+      </ECState>
+      <ECState Name="EP1" x="0.0" y="2090.0">
+        <ECAction Algorithm="EP1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="EP2" x="0.0" y="2470.0">
+        <ECAction Algorithm="PE2" Output="CNF"/>
+      </ECState>
+      <ECState Name="EP3" x="0.0" y="2850.0">
+        <ECAction Algorithm="PE3" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_PE_1" x="-1045.0" y="1520.0">
+        <ECAction Output="READY"/>
+      </ECState>
+      <ECState Name="EP4" x="0.0" y="3230.0">
+        <ECAction Algorithm="PE4" Output="CNF"/>
+      </ECState>
+      <ECState Name="EP5" x="0.0" y="3610.0">
+        <ECAction Algorithm="PE50" Output="EDATA"/>
+        <ECAction Algorithm="PE5" Output="CNF"/>
+      </ECState>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST1" Source="SIMULACIONTECLADO" x="3985.0" y="1850.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="ST2" Source="ST1" x="3995.0" y="2285.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="SIMULACIONTECLADO" x="3520.0" y="1425.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST3" Source="ST2" x="3980.0" y="2745.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST2" x="3510.0" y="2005.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST4" Source="ST3" x="3995.0" y="3085.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST5" Source="ST4" x="3990.0" y="3500.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST3" x="3290.0" y="2130.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST4" x="3245.0" y="2410.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_ST" Source="ST5" x="3130.0" y="2705.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IE1" Source="INFOREESTADO" x="9010.0" y="1845.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IE2" Source="IE1" x="8975.0" y="2180.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IE3" Source="IE2" x="8965.0" y="2480.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IE4" Source="IE3" x="9010.0" y="2915.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IE" Source="INFOREESTADO" x="8665.0" y="1425.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IE" Source="IE1" x="8700.0" y="1965.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IE" Source="IE2" x="8605.0" y="2285.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IE" Source="IE3" x="8510.0" y="2610.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_IE" Source="IE4" x="8360.0" y="2830.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=0 &amp; INITCONTROL" Destination="InitEP" Source="State1" x="7085.0" y="-750.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="EJECUCIONPROGRAMA" Source="InitEP" x="595.0" y="1525.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="PETICIONERRORES" Source="InitPE" x="2075.0" y="1615.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=1 &amp; INITCONTROL" Destination="InitPE" Source="State1" x="7485.0" y="-645.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=2 &amp; INITCONTROL" Destination="Init_ST" Source="State1" x="7850.0" y="-405.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=3 &amp; INITCONTROL" Destination="Init_LE" Source="State1" x="8465.0" y="-210.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=4 &amp; INITCONTROL" Destination="Init_IT" Source="State1" x="8825.0" y="185.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=5 &amp; INITCONTROL" Destination="Init_IE" Source="State1" x="9705.0" y="355.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="SIMULACIONTECLADO" Source="Init_ST" x="4055.0" y="1530.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="LECTURAEJES" Source="Init_LE" x="5690.0" y="1520.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="INFORMETIPO" Source="Init_IT" x="7495.0" y="1505.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="INFOREESTADO" Source="Init_IE" x="9070.0" y="1460.0"/>
+      <ECTransition Comment="" Condition="INIT" Destination="State1" Source="START" x="5010.0" y="-1160.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_IE" x="6745.0" y="570.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_ST" x="3165.0" y="40.0"/>
+      <ECTransition Comment="" Condition="UINTCPY&gt;6" Destination="START" Source="State1" x="5025.0" y="-795.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="PE1" Source="PETICIONERRORES" x="2170.0" y="1975.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="PE2" Source="PE1" x="2040.0" y="2355.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="PE3" Source="PE2" x="2075.0" y="2770.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE" Source="PE2" x="1655.0" y="2135.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE" Source="PE3" x="1595.0" y="2355.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_PE" x="2705.0" y="25.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE" Source="PETICIONERRORES" x="1630.0" y="1615.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="PE4" Source="PE3" x="2170.0" y="3215.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="PE5" Source="PE4" x="2075.0" y="3600.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE" Source="PE4" x="1630.0" y="2605.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_PE" Source="PE5" x="1520.0" y="2760.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_IT" x="5170.0" y="550.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="IT2" Source="IT1" x="7550.0" y="2270.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IT1" Source="INFORMETIPO" x="7490.0" y="1810.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IT3" Source="IT2" x="7490.0" y="2570.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IT4" Source="IT3" x="7520.0" y="3075.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="IT5" Source="IT4" x="7490.0" y="3310.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IT" Source="IT1" x="6955.0" y="1835.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IT" Source="IT2" x="6930.0" y="2010.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IT" Source="IT3" x="6895.0" y="2215.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IT" Source="IT4" x="6800.0" y="2580.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_IT" Source="IT5" x="6715.0" y="3055.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_IT" Source="INFORMETIPO" x="6990.0" y="1520.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_LE" Source="LECTURAEJES" x="5280.0" y="1520.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_LE" x="4430.0" y="900.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="LE1" Source="LECTURAEJES" x="5895.0" y="1880.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="LE2" Source="LE1" x="5665.0" y="2210.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="LE3" Source="LE2" x="5850.0" y="2625.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="LE4" Source="LE3" x="5925.0" y="3090.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="LE5" Source="LE4" x="5875.0" y="3480.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_LE" Source="LE1" x="5305.0" y="1840.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_LE" Source="LE2" x="5270.0" y="2190.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_LE" Source="LE3" x="5195.0" y="2510.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_LE" Source="LE4" x="5085.0" y="2905.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_LE" Source="LE5" x="4875.0" y="3285.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="CARGAPROGRAMA" Source="Init_CP" x="11015.0" y="1485.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_CP" Source="CARGAPROGRAMA" x="10515.0" y="1640.0"/>
+      <ECTransition Comment="" Condition="UINTCPY=6 &amp; INITCONTROL" Destination="Init_CP" Source="State1" x="10425.0" y="-195.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_CP" x="7915.0" y="515.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="CP1" Source="CARGAPROGRAMA" x="11385.0" y="1875.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="CP2" Source="CP1" x="11255.0" y="2225.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="CP3" Source="CP2" x="11290.0" y="2610.0"/>
+      <ECTransition Comment="" Condition="CNFTXT" Destination="CP4" Source="CP3" x="11015.0" y="2745.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="CP5" Source="CP4" x="10840.0" y="3210.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q &amp; NOT FINALTXT" Destination="CP3" Source="CP5" x="11420.0" y="3240.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q &amp;  FINALTXT" Destination="CP6" Source="CP5" x="10995.0" y="3915.0"/>
+      <ECTransition Comment="" Condition="REQ" Destination="Exit_CP" Source="CP6" x="10090.0" y="3015.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_CP" Source="CP1" x="10580.0" y="1845.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_CP" Source="CP2" x="10590.0" y="2045.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_CP" Source="CP5" x="10285.0" y="2825.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="EP2" Source="EP1" x="55.0" y="2345.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="EP3" Source="EP2" x="105.0" y="2725.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE_1" Source="EJECUCIONPROGRAMA" x="-175.0" y="1410.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="EP1" Source="EJECUCIONPROGRAMA" x="120.0" y="1955.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="EP4" Source="EP3" x="190.0" y="3060.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="EP5" Source="EP4" x="145.0" y="3495.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE_1" Source="EP2" x="-375.0" y="2035.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE_1" Source="EP3" x="-505.0" y="2395.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_PE_1" Source="EP4" x="-640.0" y="2720.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_PE_1" Source="EP5" x="-825.0" y="2955.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_PE_1" x="1060.0" y="145.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="INIT">
+      <ST Text="STRING1:='\x04\x7f';&#10;STRING2:='\x01\x02\x03\x04';&#10;INITCONTROL:=FALSE;"/>
+    </Algorithm>
+    <Algorithm Comment="Normally executed algorithm" Name="REQ">
+      <ST Text=""/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST0">
+      <ST Text="STRING1:='\x05';&#10;STRING2:='\x10\x30';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x30\x32\x09';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:=INSTRING;&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;STRSUB2:='\x09\x03';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;&#10;&#10;&#10;CRCSTROUT:=STRSUB3;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST2">
+      <ST Text="STRING1:=CRCSTRIN;&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST3">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x05\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST4">
+      <ST Text="STRING1:='\x10\x30';&#10;STRING2:='\x02\x03';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST5">
+      <ST Text="STRING1:='\x10\x31';&#10;STRING2:='\x04\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="EP0">
+      <ST Text="STRING1:='\x05';&#10;STRING2:='\x10\x30';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE0">
+      <ST Text="STRING1:='\x05';&#10;STRING2:='\x10\x30';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="LE0">
+      <ST Text="STRING1:='\x04\x33\x33\x7f';&#10;STRING2:='\x01\x02\x03\x04';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IT0">
+      <ST Text="STRING1:='\x04\x34\x34\x7f';&#10;STRING2:='\x01\x02\x03\x04';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE0">
+      <ST Text="STRING1:='\x05';&#10;STRING2:='\x10\x30';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE1">
+      <ST Text="STRING1:='\x01\x52\x43\x4c\x02\x03\xfe\x2c';&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE2">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x05\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE3">
+      <ST Text="STRING1:='\x10\x30';&#10;STRING2:='\x02\x03';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE4">
+      <ST Text="STRING1:='\x10\x31';&#10;STRING2:='\x04\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="start">
+      <ST Text="UINTCPY:=UINT1;&#10;INITCONTROL:=TRUE;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x30\x31';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE2">
+      <ST Text="STRING1:=CRCSTRIN;&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE3">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x05\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE4">
+      <ST Text="STRING1:='\x10\x30';&#10;STRING2:='\x02\x03';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE5">
+      <ST Text="STRING1:='\x10\x31';&#10;STRING2:='\x04\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IT1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x31\x31';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="LE1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x31\x30';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE40">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IT50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="LE50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="CP1">
+      <ST Text="STRSUB1:='\x01\x53\x43\x53\x02';&#10;STRSUB2:='\x25\x36\x31\x34\x39\x39';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x09\x44';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;STRSUB2:='\x17';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB3;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="CP2">
+      <ST Text="STRING1:=CRCSTRIN;&#10;LASTDLE:='\x10\x31';&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="CP4">
+      <ST Text="STRSUB1:='\x02';&#10;STRSUB2:=TXTSTRING;&#10;STRINGSPACE:='\x20';&#10;&#10;SPACEINT:=0;&#10;AUXINT1:=LEN(STRSUB2);&#10;WHILE SPACEINT&lt;=AUXINT1 DO&#10;&#9;STRSUB3:=MID(STRSUB2,1,SPACEINT);&#10;&#9;IF STRSUB3=STRINGSPACE THEN&#10;&#9;&#9;STRSUB2:=DELETE(STRSUB2,1,SPACEINT);&#10;&#9;&#9;AUXINT1:=LEN(STRSUB2);&#10;&#9;ELSE&#10;&#9;SPACEINT:=SPACEINT+1;&#10;&#9;&#10;&#9;END_IF;&#10;&#9;&#10;END_WHILE;&#10;&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;IF FINALTXT=TRUE THEN&#10;&#9;STRSUB2:='\x03';&#10;ELSE&#10;&#9;STRSUB2:='\x17';&#10;END_IF;&#10;&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="CP5">
+      <ST Text="STRING1:=CRCSTRIN;&#10;&#10;IF LASTDLE='\x10\x30' THEN&#10;STRING2:='\x10\x31';&#10;LASTDLE:='\x10\x31';&#10;ELSE&#10;STRING2:='\x10\x30';&#10;LASTDLE:='\x10\x30';&#10;END_IF;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="CP6">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x01\x02\x03\x04';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="EP1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x30\x30';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x25\x36\x31\x34\x39\x39\x4e\x30\x30\x30\x30\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;&#10;&#10;&#10;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

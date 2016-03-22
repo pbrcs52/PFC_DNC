@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="E_RENDXTRM">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-13" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="E1" Type="Event"/>
+      <Event Comment="Normal Execution Request" Name="E2" Type="Event"/>
+      <Event Name="R" Type="Event"/>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Execution Confirmation" Name="EO" Type="Event"/>
+    </EventOutputs>
+    <InputVars/>
+    <OutputVars/>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="475.0" y="380.0"/>
+      <ECState Comment="Initialization" Name="E1" x="920.0" y="140.0">
+        <ECAction Algorithm="INIT"/>
+      </ECState>
+      <ECState Comment="Normal execution" Name="REQ" x="2375.0" y="760.0">
+        <ECAction Algorithm="REQ" Output="EO"/>
+      </ECState>
+      <ECTransition Comment="" Condition="E1" Destination="E1" Source="START" x="920.0" y="425.0"/>
+      <ECTransition Comment="" Condition="R" Destination="START" Source="E1" x="550.0" y="140.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="REQ" x="375.0" y="770.0"/>
+      <ECTransition Comment="" Condition="E2" Destination="REQ" Source="E1" x="1720.0" y="485.0"/>
+      <ECTransition Comment="" Condition="R" Destination="START" Source="START" x="205.0" y="450.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="INIT">
+      <ST Text=""/>
+    </Algorithm>
+    <Algorithm Comment="Normally executed algorithm" Name="REQ">
+      <ST Text=""/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="B_SECCOM_CONTROLREMOTO2">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-12-09" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="INIT" Type="Event">
+        <With Var="Q"/>
+        <With Var="INSTRING"/>
+      </Event>
+      <Event Comment="Normal Execution Request" Name="REQ" Type="Event">
+        <With Var="Q"/>
+        <With Var="INSTRING"/>
+      </Event>
+      <Event Name="CRCI" Type="Event">
+        <With Var="CRCSTRIN"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Initialization Confirm" Name="INITO" Type="Event"/>
+      <Event Comment="Execution Confirmation" Name="CNF" Type="Event">
+        <With Var="STRING1"/>
+        <With Var="STRING2"/>
+      </Event>
+      <Event Name="CRCO" Type="Event">
+        <With Var="CRCSTROUT"/>
+      </Event>
+      <Event Name="EDATA" Type="Event"/>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Comment="Input event qualifier" Name="Q" Type="BOOL"/>
+      <VarDeclaration Name="INSTRING" Type="STRING"/>
+      <VarDeclaration Name="CRCSTRIN" Type="STRING"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="STRING1" Type="STRING"/>
+      <VarDeclaration Name="STRING2" Type="STRING"/>
+      <VarDeclaration Name="CRCSTROUT" Type="STRING"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <InternalVars>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB1" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB2" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" Name="STRSUB3" Type="STRING"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="FALSE" Name="INITCONTROL" Type="BOOL"/>
+      <VarDeclaration Comment="Internal Variable" InitialValue="0" Name="UINTCPY" Type="UINT"/>
+    </InternalVars>
+    <ECC>
+      <ECState Name="START" x="95.0" y="-950.0"/>
+      <ECState Comment="Initial State" Name="State1" x="3705.0" y="-950.0">
+        <ECAction Algorithm="start"/>
+      </ECState>
+      <ECState Name="SIMULACIONTECLADO" x="1900.0" y="-190.0">
+        <ECAction Algorithm="ST0" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST1" x="2185.0" y="190.0">
+        <ECAction Algorithm="ST1" Output="CRCO"/>
+      </ECState>
+      <ECState Name="ST2" x="2185.0" y="665.0">
+        <ECAction Algorithm="ST2" Output="CNF"/>
+      </ECState>
+      <ECState Name="Exit_ST" x="1140.0" y="-190.0"/>
+      <ECState Name="ST3" x="2185.0" y="1045.0">
+        <ECAction Algorithm="ST3" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST4" x="2185.0" y="1425.0">
+        <ECAction Algorithm="ST4" Output="CNF"/>
+      </ECState>
+      <ECState Name="ST5" x="2185.0" y="1805.0">
+        <ECAction Algorithm="ST5" Output="CNF"/>
+      </ECState>
+      <ECState Name="Init_ST" x="2280.0" y="-475.0">
+        <ECAction Algorithm="INIT" Output="CNF"/>
+      </ECState>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST1" Source="SIMULACIONTECLADO" x="2275.0" y="45.0"/>
+      <ECTransition Comment="" Condition="CRCI" Destination="ST2" Source="ST1" x="2285.0" y="480.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="SIMULACIONTECLADO" x="1810.0" y="-380.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST3" Source="ST2" x="2270.0" y="940.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST2" x="1800.0" y="200.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST4" Source="ST3" x="2285.0" y="1280.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="ST5" Source="ST4" x="2280.0" y="1695.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST3" x="1580.0" y="325.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;NOT Q" Destination="Exit_ST" Source="ST4" x="1535.0" y="605.0"/>
+      <ECTransition Comment="" Condition="1" Destination="Exit_ST" Source="ST5" x="1420.0" y="900.0"/>
+      <ECTransition Comment="" Condition="INITCONTROL" Destination="Init_ST" Source="State1" x="3445.0" y="-700.0"/>
+      <ECTransition Comment="" Condition="REQ&amp;Q" Destination="SIMULACIONTECLADO" Source="Init_ST" x="2345.0" y="-275.0"/>
+      <ECTransition Comment="" Condition="INIT" Destination="State1" Source="START" x="1970.0" y="-1255.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="Exit_ST" x="1075.0" y="-560.0"/>
+      <ECTransition Comment="" Condition="UINTCPY&gt;5" Destination="START" Source="State1" x="1985.0" y="-890.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="INIT">
+      <ST Text="STRING1:='\x04\x7f';&#10;STRING2:='\x01\x02\x03\x04';&#10;INITCONTROL:=FALSE;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST0">
+      <ST Text="STRING1:='\x05';&#10;STRING2:='\x10\x30';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x30\x32\x09\xd6\x33\xd9';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:=INSTRING;&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;STRSUB2:='\xd0\x09\x03';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;&#10;&#10;&#10;CRCSTROUT:=STRSUB3;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST2">
+      <ST Text="STRING1:=CRCSTRIN;&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST3">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x05\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST4">
+      <ST Text="STRING1:='\x10\x30';&#10;STRING2:='\x02\x03';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="ST5">
+      <ST Text="STRING1:='\x10\x31';&#10;STRING2:='\x04\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="start">
+      <ST Text="INITCONTROL:=TRUE;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x30\x31';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE2">
+      <ST Text="STRING1:=CRCSTRIN;&#10;STRING2:='\x10\x31';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE3">
+      <ST Text="STRING1:='\x04';&#10;STRING2:='\x05\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE4">
+      <ST Text="STRING1:='\x10\x30';&#10;STRING2:='\x02\x03';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE5">
+      <ST Text="STRING1:='\x10\x31';&#10;STRING2:='\x04\x7f';"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IT1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x31\x31';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="LE1">
+      <ST Text="STRSUB1:='\x01\x52\x43\x4b\x02';&#10;STRSUB2:='\x31\x30';&#10;STRSUB3:=CONCAT(STRSUB1,STRSUB2);&#10;&#10;STRSUB2:='\x03';&#10;STRSUB1:=CONCAT(STRSUB3,STRSUB2);&#10;&#10;CRCSTROUT:=STRSUB1;&#10;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IE40">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="IT50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="LE50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="PE50">
+      <ST Text="DATA:=RDATA;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

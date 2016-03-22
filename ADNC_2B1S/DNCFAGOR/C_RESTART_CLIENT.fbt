@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Composite Function Block Type" Name="C_RESTART_CLIENT">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2016-02-15" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="INIT" Type="Event">
+        <With Var="TIME1"/>
+        <With Var="WSTRING1"/>
+        <With Var="N"/>
+      </Event>
+      <Event Comment="Normal Execution Request" Name="REQ" Type="Event">
+        <With Var="TIME1"/>
+        <With Var="WSTRING1"/>
+        <With Var="N"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="INITO" Type="Event"/>
+      <Event Comment="Execution Confirmation" Name="CNF" Type="Event">
+        <With Var="Q"/>
+        <With Var="EQ"/>
+      </Event>
+      <Event Name="INITCLIENT" Type="Event">
+        <With Var="Q"/>
+        <With Var="EQ"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Comment="time between each try of intializate and terminate the communication FB" Name="TIME1" Type="TIME"/>
+      <VarDeclaration Comment="STATUS_CLIENT" Name="WSTRING1" Type="WSTRING"/>
+      <VarDeclaration Comment="Number of tries(1-999),(0=infinite number of tries)" Name="N" Type="UINT"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Comment="QI_CLIENT" Name="Q" Type="BOOL"/>
+      <VarDeclaration Comment="(STATUS_CLIENT==&quot;OK&quot;)=EQ" Name="EQ" Type="BOOL"/>
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB Name="WSTRING2WSTRING" Type="WSTRING2WSTRING" x="1140.0" y="-285.0"/>
+    <FB Name="B_EQ_WSTRING" Type="B_EQ_WSTRING" x="2185.0" y="-285.0">
+      <Parameter Name="WSTRING2" Value="OK"/>
+    </FB>
+    <FB Name="E_DELAY" Type="E_DELAY" x="5700.0" y="95.0"/>
+    <FB Name="E_SR" Type="E_SR" x="7125.0" y="95.0"/>
+    <FB Name="E_SWITCH" Type="E_SWITCH" x="6365.0" y="95.0"/>
+    <FB Name="E_PERMIT" Type="E_PERMIT" x="3800.0" y="-285.0"/>
+    <FB Name="F_NOT" Type="F_NOT" x="3230.0" y="-285.0"/>
+    <FB Name="E_PERMIT_2" Type="E_PERMIT" x="5130.0" y="665.0"/>
+    <FB Name="E_PERMIT_3" Type="E_PERMIT" x="4750.0" y="-285.0"/>
+    <FB Name="E_CTD" Type="E_CTD" x="2375.0" y="1425.0"/>
+    <FB Name="F_NOT_3" Type="F_NOT" x="3325.0" y="1805.0"/>
+    <FB Name="F_GT" Type="F_GT" x="1235.0" y="1045.0">
+      <Parameter Name="IN2" Value="UINT#0"/>
+    </FB>
+    <FB Name="E_PERMIT_3_1" Type="E_PERMIT" x="4750.0" y="-855.0"/>
+    <FB Name="F_NOT_3_1" Type="F_NOT" x="1995.0" y="570.0"/>
+    <FB Name="E_PERMIT_2_1" Type="E_PERMIT" x="5985.0" y="1425.0"/>
+    <FB Name="F_NOT_2" Type="F_NOT" x="5035.0" y="1330.0"/>
+    <DataConnections>
+      <Connection Destination="B_EQ_WSTRING.WSTRING1" Source="WSTRING2WSTRING.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="WSTRING2WSTRING.IN" Source="WSTRING1" dx1="500.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT.PERMIT" Source="F_NOT.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT.IN" Source="B_EQ_WSTRING.BOOL1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_DELAY.DT" Source="TIME1" dx1="165.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SWITCH.G" Source="E_SR.Q" dx1="0.0" dx2="0.0" dy="115.0"/>
+      <Connection Destination="Q" Source="E_SR.Q" dx1="650.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="EQ" Source="B_EQ_WSTRING.BOOL1" dx1="165.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2.PERMIT" Source="B_EQ_WSTRING.BOOL1" dx1="225.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTD.PV" Source="N" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_3.IN" Source="E_CTD.Q" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_3.PERMIT" Source="F_NOT_3.OUT" dx1="1510.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_GT.IN1" Source="N" dx1="320.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_3_1.IN" Source="F_GT.OUT" dx1="270.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_3_1.PERMIT" Source="F_NOT_3_1.OUT" dx1="305.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2_1.PERMIT" Source="F_NOT_2.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_2.IN" Source="B_EQ_WSTRING.BOOL1" dx1="555.0" dx2="0.0" dy="0.0"/>
+    </DataConnections>
+    <EventConnections>
+      <Connection Destination="B_EQ_WSTRING.REQ" Source="WSTRING2WSTRING.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT.EI" Source="F_NOT.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT.REQ" Source="B_EQ_WSTRING.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SR.S" Source="E_SWITCH.EO0" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SR.R" Source="E_SWITCH.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SWITCH.EI" Source="E_DELAY.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="INITCLIENT" Source="E_SR.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="CNF" Source="E_PERMIT_2.EO" dx1="2275.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2.EI" Source="B_EQ_WSTRING.CNF" dx1="130.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_DELAY.START" Source="E_PERMIT_3.EO" dx1="420.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_3.EI" Source="E_PERMIT.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_3.REQ" Source="E_CTD.CDO" dx1="420.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTD.CD" Source="E_SWITCH.EO0" dx1="0.0" dx2="-185.0" dy="-1785.0"/>
+      <Connection Destination="F_NOT_3.REQ" Source="E_CTD.LDO" dx1="250.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="WSTRING2WSTRING.REQ" Source="REQ" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_GT.REQ" Source="INIT" dx1="435.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_3_1.EI" Source="E_PERMIT.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_DELAY.START" Source="E_PERMIT_3_1.EO" dx1="435.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_3_1.REQ" Source="F_GT.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTD.LD" Source="F_NOT_3_1.CNF" dx1="0.0" dx2="-280.0" dy="70.0"/>
+      <Connection Destination="INITO" Source="E_PERMIT_2_1.EO" dx1="1240.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTD.LD" Source="E_PERMIT_2.EO" dx1="0.0" dx2="0.0" dy="1315.0"/>
+      <Connection Destination="F_NOT_2.REQ" Source="E_CTD.LDO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2_1.EI" Source="F_NOT_2.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+    </EventConnections>
+  </FBNetwork>
+</FBType>

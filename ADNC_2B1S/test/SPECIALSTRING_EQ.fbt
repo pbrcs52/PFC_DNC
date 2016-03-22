@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="SPECIALSTRING_EQ">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-04" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="EI" Type="Event">
+        <With Var="IN1"/>
+        <With Var="IN2"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Initialization Confirm" Name="EO" Type="Event">
+        <With Var="OUT"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="IN1" Type="STRING"/>
+      <VarDeclaration Name="IN2" Type="STRING"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="OUT" Type="BOOL"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="550.0" y="425.0"/>
+      <ECState Comment="Initialization" Name="CMP" x="920.0" y="140.0">
+        <ECAction Algorithm="COMPARTE" Output="EO"/>
+      </ECState>
+      <ECTransition Comment="" Condition="EI" Destination="CMP" Source="START" x="920.0" y="425.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="CMP" x="550.0" y="140.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="COMPARTE">
+      <ST Text="IF IN1 = IN2 THEN&#10;OUT:=TRUE;&#10;END_IF;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>

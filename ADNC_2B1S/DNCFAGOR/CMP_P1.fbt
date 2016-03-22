@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Composite Function Block Type" Name="CMP_P1">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-23" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Comment="Initialization Request" Name="INIT" Type="Event"/>
+      <Event Comment="Normal Execution Request" Name="REQ" Type="Event">
+        <With Var="STRING1"/>
+        <With Var="STRING2"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Comment="Initialization Confirm" Name="INITO" Type="Event"/>
+      <Event Comment="Execution Confirmation" Name="CNF" Type="Event">
+        <With Var="STRING3"/>
+        <With Var="BOOL1"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="STRING1" Type="STRING"/>
+      <VarDeclaration Name="STRING2" Type="STRING"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="STRING3" Type="STRING"/>
+      <VarDeclaration Name="BOOL1" Type="BOOL"/>
+    </OutputVars>
+  </InterfaceList>
+  <FBNetwork>
+    <FB Name="E_SPLIT_1_1_0_1_0_0" Type="E_SPLIT" x="25840.0" y="2090.0"/>
+    <FB Name="E_SPLIT_1_0_0_0_0_0" Type="E_SPLIT" x="14920.0" y="4960.0"/>
+    <FB Name="F_NOT_1_1" Type="F_NOT" x="14920.0" y="1905.0"/>
+    <FB Name="STRING2STRING_1ok" Type="STRING2STRING" x="10450.0" y="5700.0">
+      <Parameter Name="IN" Value="okk"/>
+    </FB>
+    <FB Name="STRING_SPLIT_0_1" Type="STRING_SPLIT" x="13110.0" y="3325.0"/>
+    <FB Name="SIFB_RAWSTRING_EQ_0_0_0_0" Type="SIFB_RAWSTRING_EQ" x="20520.0" y="3325.0"/>
+    <FB Name="E_SPLIT_1_0_0_0_0" Type="E_SPLIT" x="12255.0" y="4465.0"/>
+    <FB Name="E_MERGE_4_0" Type="E_MERGE" x="3610.0" y="2660.0"/>
+    <FB Name="E_PERMIT_1_1_0_2" Type="E_PERMIT" x="22135.0" y="2375.0"/>
+    <FB Name="E_MERGE_1_0_0" Type="E_MERGE" x="12065.0" y="1425.0"/>
+    <FB Name="E_PERMIT_1_1_0_0_1_0" Type="E_PERMIT" x="24225.0" y="4465.0"/>
+    <FB Name="CLIENT_1_0_0" Type="CLIENT_1" x="15200.0" y="3420.0">
+      <Parameter Name="QI" Value="BOOL#1"/>
+      <Parameter Name="ID" Value="ser[COM3]"/>
+    </FB>
+    <FB Name="F_LE_0_0_0" Type="F_LE" x="24795.0" y="3040.0">
+      <Parameter Name="IN2" Value="UINT#2"/>
+    </FB>
+    <FB Name="BASIC_SEND_ENQ_1_0_1" Type="BASIC_SEND_ENQ" x="11495.0" y="3610.0"/>
+    <FB Name="STRING_SPLIT_0_0_0" Type="STRING_SPLIT" x="17865.0" y="3345.0"/>
+    <FB Name="BASIC_SEND_EOT_0" Type="BASIC_SEND_EOT" x="11305.0" y="4465.0"/>
+    <FB Name="E_MERGE_4" Type="E_MERGE" x="5415.0" y="2755.0"/>
+    <FB Name="F_NOT_1_0_0_0_0" Type="F_NOT" x="7885.0" y="4180.0"/>
+    <FB Name="STRING2STRING_1_1_0_0" Type="STRING2STRING" x="760.0" y="1045.0"/>
+    <FB Name="E_SPLIT_1_1_0_2" Type="E_SPLIT" x="23085.0" y="2090.0"/>
+    <FB Name="E_PERMIT_1_1_0_0_0_1_0" Type="E_PERMIT" x="8550.0" y="4750.0"/>
+    <FB Name="E_PERMIT_1_0_1_1" Type="E_PERMIT" x="15585.0" y="1905.0"/>
+    <FB Name="E_PERMIT_1_1_0_0_0_1_0_0" Type="E_PERMIT" x="8645.0" y="4180.0"/>
+    <FB Name="E_PERMIT_1_3_0_0" Type="E_PERMIT" x="26600.0" y="2090.0"/>
+    <FB Name="E_SPLIT_1_0_1_0" Type="E_SPLIT" x="14155.0" y="3325.0"/>
+    <FB Name="E_PERMIT_1_1_0_0_2" Type="E_PERMIT" x="22515.0" y="3705.0"/>
+    <FB Name="SIFB_GENTXT_0" Type="SIFB_GENTXT" x="17765.0" y="2565.0"/>
+    <FB Name="E_PERMIT_1_1_0_0_0_1" Type="E_PERMIT" x="22325.0" y="4750.0"/>
+    <FB Name="E_MERGE_0_0" Type="E_MERGE" x="10640.0" y="4465.0"/>
+    <FB Name="E_DELAY_0_1" Type="E_DELAY" x="11210.0" y="1330.0">
+      <Parameter Name="DT" Value="T#3s"/>
+    </FB>
+    <FB Name="F_LE_0_1" Type="F_LE" x="13965.0" y="1520.0">
+      <Parameter Name="IN2" Value="UINT#2"/>
+    </FB>
+    <FB Name="F_NOT_1_0_2" Type="F_NOT" x="25745.0" y="3040.0"/>
+    <FB Name="E_SPLIT_1_1_1" Type="E_SPLIT" x="21755.0" y="3325.0"/>
+    <FB Name="STRING2STRING_5" Type="STRING2STRING" x="10165.0" y="3325.0"/>
+    <FB Name="E_SPLIT_1_1_0_1_1" Type="E_SPLIT" x="23465.0" y="3610.0"/>
+    <FB Name="E_SPLIT_1_0_1_1" Type="E_SPLIT" x="16345.0" y="3535.0"/>
+    <FB Name="SIFB_RAWSTRING_EQ_0_0_1" Type="SIFB_RAWSTRING_EQ" x="19190.0" y="2280.0"/>
+    <FB Name="STRING2STRING_1_1_0_0_0" Type="STRING2STRING" x="2090.0" y="1995.0"/>
+    <FB Name="F_NOT_1_0_0_0" Type="F_NOT" x="21660.0" y="4750.0"/>
+    <FB Name="E_CTU_0_0_0" Type="E_CTU" x="24035.0" y="2945.0">
+      <Parameter Name="PV" Value="0"/>
+    </FB>
+    <FB Name="E_MERGE_2_2_0" Type="E_MERGE" x="10260.0" y="1615.0"/>
+    <FB Name="E_DELAY_0_1_0" Type="E_DELAY" x="14345.0" y="4955.0">
+      <Parameter Name="DT" Value="T#150ms"/>
+    </FB>
+    <FB Name="E_SR_2" Type="E_SR" x="4275.0" y="2090.0"/>
+    <FB Name="E_CTU_0_1" Type="E_CTU" x="12730.0" y="1425.0">
+      <Parameter Name="PV" Value="0"/>
+    </FB>
+    <FB Name="E_SPLIT_1_0_0_1_0" Type="E_SPLIT" x="6365.0" y="2185.0"/>
+    <FB Name="F_NOT_1_0_1_0" Type="F_NOT" x="23370.0" y="4465.0"/>
+    <FB Name="E_PERMIT_1_0_1_0_0" Type="E_PERMIT" x="26410.0" y="3040.0"/>
+    <FB Name="E_SPLIT_1_0_0_1" Type="E_SPLIT" x="11590.0" y="5700.0"/>
+    <FB Name="E_PERMIT_1_3_1" Type="E_PERMIT" x="15580.0" y="1425.0"/>
+    <FB Name="E_PERMIT_2" Type="E_PERMIT" x="17200.0" y="3630.0"/>
+    <FB Name="BASIC_SEND_NAKDEL_1" Type="BASIC_SEND_NAKDEL" x="19190.0" y="3230.0"/>
+    <FB Name="SIFB_SPSTRINGCMP_1" Type="SIFB_SPSTRINGCMP" x="17150.0" y="1965.0"/>
+    <FB Name="B_DEMUX_BOOL" Type="B_DEMUX_BOOL" x="25460.0" y="570.0">
+      <Parameter Name="IN2" Value="BOOL#FALSE"/>
+      <Parameter Name="IN3" Value="BOOL#TRUE"/>
+    </FB>
+    <DataConnections>
+      <Connection Destination="E_PERMIT_1_0_1_1.PERMIT" Source="F_NOT_1_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_0_1_0_0.PERMIT" Source="F_NOT_1_0_2.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_2.PERMIT" Source="SIFB_RAWSTRING_EQ_0_0_1.OUT" dx1="370.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1_0.PERMIT" Source="E_SR_2.Q" dx1="180.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_3_0_0.PERMIT" Source="F_LE_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_2.PERMIT" Source="SIFB_RAWSTRING_EQ_0_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2.PERMIT" Source="E_SR_2.Q" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_0_0.STRING1" Source="CLIENT_1_0_0.RD_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_0_0_0.IN" Source="E_SR_2.Q" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_GENTXT_0.STRING2" Source="CLIENT_1_0_0.RD_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_0_0.IN" Source="SIFB_RAWSTRING_EQ_0_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.STRING2" Source="BASIC_SEND_ENQ_1_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.STRING3" Source="BASIC_SEND_EOT_0.OUT" dx1="160.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_1.IN" Source="F_LE_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_2.IN" Source="F_LE_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_0_0.IN1" Source="STRING_SPLIT_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1.PERMIT" Source="F_NOT_1_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_0_0.IN2" Source="BASIC_SEND_NAKDEL_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_LE_0_1.IN1" Source="E_CTU_0_1.CV" dx1="270.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_5.IN" Source="STRING2STRING_1_1_0_0.OUT" dx1="235.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.STRING1" Source="STRING2STRING_5.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_LE_0_0_0.IN1" Source="E_CTU_0_0_0.CV" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="CLIENT_1_0_0.SD_1" Source="STRING_SPLIT_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1_0_0.PERMIT" Source="F_NOT_1_0_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_3_1.PERMIT" Source="F_LE_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_1_0.PERMIT" Source="F_NOT_1_0_1_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_1.IN2" Source="STRING2STRING_1_1_0_0_0.OUT" dx1="2375.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_1.IN1" Source="STRING_SPLIT_0_0_0.OUT" dx1="250.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_1_0.IN" Source="SIFB_RAWSTRING_EQ_0_0_1.OUT" dx1="1160.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_GENTXT_0.STRING1" Source="STRING_SPLIT_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_1_1_0_0.IN" Source="STRING1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_1_1_0_0_0.IN" Source="STRING2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING3" Source="STRING_SPLIT_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_SPSTRINGCMP_1.STRING1" Source="STRING2STRING_1_1_0_0_0.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="B_DEMUX_BOOL.IN1" Source="SIFB_RAWSTRING_EQ_0_0_1.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="BOOL1" Source="B_DEMUX_BOOL.OUT" dx1="0.0" dx2="0.0" dy="0.0"/>
+    </DataConnections>
+    <EventConnections>
+      <Connection Destination="E_PERMIT_1_0_1_0_0.EI" Source="E_SPLIT_1_1_0_1_0_0.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_LE_0_1.REQ" Source="E_CTU_0_1.CUO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_1_0_1_0_0.EI" Source="F_NOT_1_0_2.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_1_0_2.EI" Source="E_PERMIT_1_1_0_2.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.EI2" Source="BASIC_SEND_ENQ_1_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="BASIC_SEND_EOT_0.REQ" Source="E_MERGE_0_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_0_0.EI1" Source="E_PERMIT_1_0_1_1.EO" dx1="0.0" dx2="-830.0" dy="-3490.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_0_0.EI" Source="BASIC_SEND_NAKDEL_1.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_4_0.EI2" Source="E_SPLIT_1_0_0_0_0_0.EO1" dx1="0.0" dx2="-250.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_4.EI1" Source="E_CTU_0_1.RO" dx1="0.0" dx2="0.0" dy="-250.0"/>
+      <Connection Destination="E_SPLIT_1_0_0_1.EI" Source="STRING2STRING_1ok.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1_0_0.EI" Source="F_NOT_1_0_0_0_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_1_0.EI" Source="F_NOT_1_0_1_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_2.EI" Source="E_SPLIT_1_1_1.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_2.REQ" Source="F_LE_0_0_0.CNF" dx1="180.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_0_0_0_0_0.EI" Source="E_DELAY_0_1_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_0_0.REQ" Source="E_SPLIT_1_1_1.EO3" dx1="0.0" dx2="-295.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_0_1_1.EI" Source="CLIENT_1_0_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_2.EI" Source="E_SPLIT_1_0_1_1.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SR_2.R" Source="E_MERGE_4_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTU_0_0_0.CU" Source="E_SPLIT_1_1_0_1_1.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_2_2_0.EI1" Source="E_SPLIT_1_0_0_0_0_0.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_0_0_1_0.EI" Source="E_SR_2.EO" dx1="0.0" dx2="-680.0" dy="0.0"/>
+      <Connection Destination="E_CTU_0_1.CU" Source="E_MERGE_1_0_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_0_0.EI1" Source="E_PERMIT_2.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_0_1_1.EI" Source="F_NOT_1_1.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="CLIENT_1_0_0.REQ" Source="E_SPLIT_1_0_1_0.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_3_0_0.EI" Source="E_SPLIT_1_1_0_1_0_0.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTU_0_0_0.R" Source="E_SPLIT_1_1_0_2.EO2" dx1="0.0" dx2="-155.0" dy="165.0"/>
+      <Connection Destination="STRING2STRING_1_1_0_0_0.REQ" Source="STRING2STRING_1_1_0_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_RAWSTRING_EQ_0_0_1.EI" Source="STRING_SPLIT_0_0_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_GENTXT_0.REQ" Source="E_SPLIT_1_0_1_1.EO3" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1_0.EI" Source="E_SPLIT_1_0_0_1_0.EO2" dx1="690.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_5.REQ" Source="E_MERGE_4.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_0_0_0.REQ" Source="E_SPLIT_1_0_0_1_0.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_1_0_0.EI1" Source="E_PERMIT_1_1_0_0_1_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_DELAY_0_1.START" Source="E_SPLIT_1_0_1_0.EO1" dx1="0.0" dx2="0.0" dy="555.0"/>
+      <Connection Destination="E_MERGE_4_0.EI1" Source="E_SPLIT_1_0_0_1.EO1" dx1="0.0" dx2="0.0" dy="-235.0"/>
+      <Connection Destination="E_MERGE_0_0.EI2" Source="E_PERMIT_1_0_1_0_0.EO" dx1="0.0" dx2="0.0" dy="420.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.EI1" Source="STRING2STRING_5.CNF" dx1="600.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_0_1_0.EI" Source="STRING_SPLIT_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_0_0_0_0.EI" Source="BASIC_SEND_EOT_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_4.EI2" Source="E_PERMIT_1_3_0_0.EO" dx1="0.0" dx2="0.0" dy="1555.0"/>
+      <Connection Destination="E_SPLIT_1_1_0_1_1.EI" Source="E_PERMIT_1_1_0_0_2.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_2_2_0.EI1" Source="E_PERMIT_1_1_0_0_0_1_0_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_0_0_1.EI" Source="F_NOT_1_0_0_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_1_0_0.EI2" Source="E_DELAY_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_1_1.EI" Source="SIFB_RAWSTRING_EQ_0_0_0_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING_SPLIT_0_1.EI3" Source="E_SPLIT_1_0_0_0_0.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_1ok.REQ" Source="E_SPLIT_1_1_0_2.EO3" dx1="0.0" dx2="-2465.0" dy="-3140.0"/>
+      <Connection Destination="E_DELAY_0_1.STOP" Source="E_MERGE_2_2_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_3_1.EI" Source="F_LE_0_1.CNF" dx1="380.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="BASIC_SEND_NAKDEL_1.REQ" Source="SIFB_RAWSTRING_EQ_0_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_DELAY_0_1_0.START" Source="E_SPLIT_1_0_0_0_0.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SR_2.S" Source="STRING2STRING_1_1_0_0_0.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_1.REQ" Source="F_LE_0_1.CNF" dx1="450.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_CTU_0_1.R" Source="E_PERMIT_1_1_0_0_0_1_0.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_PERMIT_1_1_0_2.EI" Source="E_SPLIT_1_1_1.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_LE_0_0_0.REQ" Source="E_CTU_0_0_0.CUO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="F_NOT_1_0_1_0.REQ" Source="E_PERMIT_1_1_0_0_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_MERGE_2_2_0.EI2" Source="E_SPLIT_1_0_1_1.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="BASIC_SEND_ENQ_1_0_1.EI" Source="E_PERMIT_1_3_1.EO" dx1="0.0" dx2="0.0" dy="745.0"/>
+      <Connection Destination="CLIENT_1_0_0.INIT" Source="INIT" dx1="140.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="INITO" Source="CLIENT_1_0_0.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="STRING2STRING_1_1_0_0.REQ" Source="REQ" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="CNF" Source="E_SPLIT_1_0_0_1.EO2" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="SIFB_SPSTRINGCMP_1.EI" Source="E_SPLIT_1_0_1_0.EO3" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="E_SPLIT_1_1_0_2.EI" Source="SIFB_SPSTRINGCMP_1.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="B_DEMUX_BOOL.EI1" Source="SIFB_RAWSTRING_EQ_0_0_1.EO" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="B_DEMUX_BOOL.EI3" Source="SIFB_SPSTRINGCMP_1.EO1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      <Connection Destination="B_DEMUX_BOOL.EI2" Source="E_SPLIT_1_0_0_0_0.EO3" dx1="0.0" dx2="0.0" dy="0.0"/>
+    </EventConnections>
+  </FBNetwork>
+</FBType>

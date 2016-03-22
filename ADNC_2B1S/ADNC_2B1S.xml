@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryElement:AutomationSystem xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:libraryElement="org.fordiac.ide.model.libraryElement" name="ADNC_2B1S" id="_g3_ewKljEeWfeMEtnf7e-Q">
+  <versionInfo author="Author" organization="4DIAC-Consortium" version="1.0"/>
+  <identification/>
+  <application comment="" name="PANEL">
+    <fBNetwork href="PANEL.xml#//@fbNetwork"/>
+  </application>
+  <application comment="" name="COMDNC">
+    <fBNetwork href="COMDNC.xml#//@fbNetwork"/>
+  </application>
+  <systemConfiguration>
+    <systemConfigurationNetwork href="SysConf.xml#//@systemConfigNetwork"/>
+  </systemConfiguration>
+</libraryElement:AutomationSystem>

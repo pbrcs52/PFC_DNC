@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE FBType SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<FBType Comment="Basic Function Block Type" Name="STRING_DEMUX2N">
+  <Identification Standard="61499-2"/>
+  <VersionInfo Author="4DIAC-IDE" Date="2015-11-13" Organization="4DIAC-Consortium" Version="0.0"/>
+  <InterfaceList>
+    <EventInputs>
+      <Event Name="EIA" Type="Event">
+        <With Var="STRA1"/>
+        <With Var="STRA2"/>
+      </Event>
+      <Event Name="EIB" Type="Event">
+        <With Var="STRB1"/>
+        <With Var="STRB2"/>
+      </Event>
+      <Event Name="EIC" Type="Event">
+        <With Var="STRC1"/>
+        <With Var="STRC2"/>
+      </Event>
+      <Event Name="EID" Type="Event">
+        <With Var="STRD1"/>
+        <With Var="STRD2"/>
+      </Event>
+      <Event Name="EIE" Type="Event">
+        <With Var="STRE1"/>
+        <With Var="STRE2"/>
+      </Event>
+    </EventInputs>
+    <EventOutputs>
+      <Event Name="EO" Type="Event">
+        <With Var="STROUT1"/>
+        <With Var="STROUT2"/>
+      </Event>
+    </EventOutputs>
+    <InputVars>
+      <VarDeclaration Name="STRA1" Type="STRING"/>
+      <VarDeclaration Name="STRA2" Type="STRING"/>
+      <VarDeclaration Name="STRB1" Type="STRING"/>
+      <VarDeclaration Name="STRB2" Type="STRING"/>
+      <VarDeclaration Name="STRC1" Type="STRING"/>
+      <VarDeclaration Name="STRC2" Type="STRING"/>
+      <VarDeclaration Name="STRD1" Type="STRING"/>
+      <VarDeclaration Name="STRD2" Type="STRING"/>
+      <VarDeclaration Name="STRE1" Type="STRING"/>
+      <VarDeclaration Name="STRE2" Type="STRING"/>
+    </InputVars>
+    <OutputVars>
+      <VarDeclaration Name="STROUT1" Type="STRING"/>
+      <VarDeclaration Name="STROUT2" Type="STRING"/>
+    </OutputVars>
+  </InterfaceList>
+  <BasicFB>
+    <ECC>
+      <ECState Comment="Initial State" Name="START" x="380.0" y="1425.0"/>
+      <ECState Name="ESTRA" x="1425.0" y="570.0">
+        <ECAction Algorithm="A_ESTRA" Output="EO"/>
+      </ECState>
+      <ECState Name="ESTRB" x="1680.0" y="930.0">
+        <ECAction Algorithm="A_ESTRB" Output="EO"/>
+      </ECState>
+      <ECState Name="ESTRC" x="2090.0" y="1330.0">
+        <ECAction Algorithm="A_ESTRC" Output="EO"/>
+      </ECState>
+      <ECState Name="ESTRD" x="2185.0" y="1615.0">
+        <ECAction Algorithm="A_ESTRD" Output="EO"/>
+      </ECState>
+      <ECState Name="ESTRE" x="1900.0" y="1995.0">
+        <ECAction Algorithm="A_ESTRE" Output="EO"/>
+      </ECState>
+      <ECTransition Comment="" Condition="EIA" Destination="ESTRA" Source="START" x="540.0" y="500.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="ESTRA" x="710.0" y="615.0"/>
+      <ECTransition Comment="" Condition="EIB" Destination="ESTRB" Source="START" x="855.0" y="760.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="ESTRB" x="975.0" y="955.0"/>
+      <ECTransition Comment="" Condition="EIC" Destination="ESTRC" Source="START" x="1165.0" y="1115.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="ESTRC" x="1260.0" y="1350.0"/>
+      <ECTransition Comment="" Condition="EID" Destination="ESTRD" Source="START" x="1445.0" y="1520.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="ESTRD" x="1360.0" y="1640.0"/>
+      <ECTransition Comment="" Condition="EIE" Destination="ESTRE" Source="START" x="1210.0" y="1730.0"/>
+      <ECTransition Comment="" Condition="1" Destination="START" Source="ESTRE" x="1125.0" y="1980.0"/>
+    </ECC>
+    <Algorithm Comment="Initialization algorithm" Name="A_ESTRA">
+      <ST Text="STROUT1:=STRA1;&#10;STROUT2:=STRA2;"/>
+    </Algorithm>
+    <Algorithm Comment="Normally executed algorithm" Name="A_ESTRB">
+      <ST Text="STROUT1:=STRB1;&#10;STROUT2:=STRB2;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="A_ESTRC">
+      <ST Text="STROUT1:=STRC1;&#10;STROUT2:=STRC2;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="A_ESTRD">
+      <ST Text="STROUT1:=STRD1;&#10;STROUT2:=STRD2;"/>
+    </Algorithm>
+    <Algorithm Comment="new algorithm" Name="A_ESTRE">
+      <ST Text="STROUT1:=STRE1;&#10;STROUT2:=STRE2;"/>
+    </Algorithm>
+  </BasicFB>
+</FBType>
